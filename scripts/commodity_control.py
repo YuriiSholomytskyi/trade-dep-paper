@@ -57,14 +57,15 @@ def main():
     LBL = {"us_pull": "US demand", "otheradv_pull": "Other advanced demand",
            "emer_pull": "Emerging demand (excl.\\ China)", "china_pull": "China demand",
            "ctot_g": "Commodity terms of trade", "ctot_g_comm": "Commodity ToT $\\times$ commodity exporter",
-           "trade_open": "Trade openness", "depth_gap": "Depth of downturn"}
+           "trade_open": "Trade openness", "partner_vol": "Partner volatility",
+           "depth_gap": "Depth of downturn"}
 
-    specs = [("Depth", "depth_gap", parts + ["ctot_g", "ctot_g_comm", "trade_open", "program"]),
+    specs = [("Depth", "depth_gap", parts + ["ctot_g", "ctot_g_comm", "trade_open", "partner_vol", "program"]),
              ("Contraction", "t_contraction", parts + ["ctot_g", "ctot_g_comm", "trade_open", "depth_gap", "program"]),
              ("Climb", "t_climb", parts + ["ctot_g", "ctot_g_comm", "trade_open", "depth_gap", "program"]),
              ("Full cycle", "t_full", parts + ["ctot_g", "ctot_g_comm", "trade_open", "depth_gap", "program"])]
 
-    rows = parts + ["ctot_g", "ctot_g_comm", "trade_open", "depth_gap"]
+    rows = parts + ["ctot_g", "ctot_g_comm", "trade_open", "partner_vol", "depth_gap"]
     cols = []
     for name, y, xs in specs:
         res = ols(ep, y, xs)

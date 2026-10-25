@@ -136,7 +136,10 @@ def main():
         r"\bottomrule", r"\end{tabularx}",
         r"\\[2pt]\footnotesize{The move toward the hub is funded proportionally from all "
         r"non-hub partners (upper panel) or from the China share alone, capped at that share "
-        r"(lower panel). Episodes where the hub share is degenerate are dropped.}",
+        r"(lower panel). The 219 observations in the upper panel correspond to the 219 unique "
+        r"country-by-peak-year export portfolios across the 263 episodes (69 US-hub, 146 EU-hub, "
+        r"and 4 China-hub in Mongolia); the lower panel restricts to portfolios with a "
+        r"pre-downturn China export share exceeding 0.5 percent.}",
         r"\end{table}",
     ]
     with open(os.path.join(OUT, "tables_counterfactual.tex"), "w", encoding="utf-8") as f:

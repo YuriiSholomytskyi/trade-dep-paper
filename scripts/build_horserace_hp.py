@@ -75,9 +75,23 @@ def show(res, title):
     print(f"  R2={r2:.3f}  n={n}  clusters={G}")
 
 
-def gap_series(s, one_sided=ONE_SIDED):
+def gap_series(s, one_sided=ONE_SIDED, filter_type="hp", hamilton_h=24, hamilton_p=4):
     s = s.dropna()
     ls = np.log(s.clip(lower=1e-9))
+    if filter_type == "hamilton":
+        # Hamilton (2018) linear projection filter: y_t on const and y_{t-h}, ..., y_{t-h-p+1}
+        n = len(ls)
+        start = hamilton_h + hamilton_p - 1
+        if n <= start + 12:
+            return pd.Series(dtype=float)
+        yv = ls.values[start:]
+        X_cols = [np.ones(len(yv))]
+        for lag in range(hamilton_h, hamilton_h + hamilton_p):
+            X_cols.append(ls.values[start - lag:n - lag])
+        X = np.column_stack(X_cols)
+        beta = np.linalg.lstsq(X, yv, rcond=None)[0]
+        resid = (yv - X @ beta) * 100.0
+        return pd.Series(resid, index=ls.index[start:])
     if one_sided:
         trend = pd.Series(index=ls.index, dtype=float)
         for i in range(36, len(ls) + 1):
@@ -98,8 +112,24 @@ def _persist_recovery(gap, trough_i, k):
     return None
 
 
-def episodes_from_gap(gap, min_depth=MIN_DEPTH):
-    below = gap < 0
+def episodes_from_gap(gap, min_depth=MIN_DEPTH, min_dur=1, merge_gap=0):
+    below = (gap < 0).copy()
+    if merge_gap > 0 and len(below) > 2:
+        # Bridge isolated non-negative blips of length <= merge_gap between negative spells
+        bvals = below.values.copy()
+        i = 0
+        n = len(bvals)
+        while i < n:
+            if not bvals[i]:
+                j = i
+                while j < n and not bvals[j]:
+                    j += 1
+                if i > 0 and j < n and (j - i) <= merge_gap:
+                    bvals[i:j] = True
+                i = j
+            else:
+                i += 1
+        below = pd.Series(bvals, index=gap.index)
     eps, in_ep, start = [], False, 0
     for t in range(len(gap)):
         if below.iloc[t] and not in_ep:
@@ -109,10 +139,11 @@ def episodes_from_gap(gap, min_depth=MIN_DEPTH):
             depth = -seg.min()
             peak_i, trough_i = start, start + seg.values.argmin()
             rec_i = t if not below.iloc[t] else None
-            if depth >= min_depth:
+            dur_spell = (gap.index[rec_i] - gap.index[peak_i]).n if rec_i else CENSOR
+            if depth >= min_depth and dur_spell >= min_dur:
                 row = {"peak_year": gap.index[peak_i].year, "depth_gap": depth,
                        "t_contraction": (gap.index[trough_i] - gap.index[peak_i]).n,
-                       "t_full": (gap.index[rec_i] - gap.index[peak_i]).n if rec_i else CENSOR,
+                       "t_full": dur_spell,
                        "t_climb": (gap.index[rec_i] - gap.index[trough_i]).n if rec_i else CENSOR}
                 # --- crossing-independent recovery outcomes (referee: HP zero-crossing) ---
                 # Cumulative activity loss: area of the negative gap over the spell (a magnitude,
@@ -129,11 +160,15 @@ def episodes_from_gap(gap, min_depth=MIN_DEPTH):
     return eps
 
 
-def build_episodes(one_sided=False, min_depth=MIN_DEPTH, crisis_only=False):
+def build_episodes(one_sided=False, min_depth=MIN_DEPTH, crisis_only=False,
+                   min_dur=1, merge_gap=0, filter_type="hp"):
     """Build the episode panel with treatments + partner-demand decomposition.
     one_sided : real-time (expanding-window) HP trend.
     min_depth : minimum gap depth (%) for an episode.
     crisis_only : keep only episodes near a Laeven-Valencia crisis (peak_year within +/-1).
+    min_dur : minimum negative-spell duration (months).
+    merge_gap : bridge non-negative blips of length <= merge_gap months between negative spells.
+    filter_type : 'hp' (default) or 'hamilton' (Hamilton 2018 linear projection filter).
     """
     sa = pd.read_csv(os.path.join(DATA, "haver_activity_sa.csv"), index_col=0)
     sa.index = pd.PeriodIndex(sa.index, freq="M")
@@ -147,10 +182,12 @@ def build_episodes(one_sided=False, min_depth=MIN_DEPTH, crisis_only=False):
     rows = []
     for iso in sa.columns:
         try:
-            g = gap_series(sa[iso], one_sided=one_sided)
+            g = gap_series(sa[iso], one_sided=one_sided, filter_type=filter_type)
         except Exception:
             continue
-        for e in episodes_from_gap(g, min_depth=min_depth):
+        if g.empty:
+            continue
+        for e in episodes_from_gap(g, min_depth=min_depth, min_dur=min_dur, merge_gap=merge_gap):
             e["iso3"] = iso
             rows.append(e)
     ep = pd.DataFrame(rows)

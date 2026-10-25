@@ -6,11 +6,16 @@
 \toprule
 Specification & Ep. & US & Other adv. & Emerging & China & Openness \\ \midrule
 Baseline (2-sided HP, depth$\ge$2) & 263 & $-5.6^{***}${\scriptsize$(-3.6)$} & $-2.5^{*}${\scriptsize$(-1.9)$} & $-1.3${\scriptsize$(-1.5)$} & $1.9^{**}${\scriptsize$(2.1)$} & $0.6${\scriptsize$(0.3)$} \\
+Baseline (omitting depth control) & 263 & $-6.6^{***}${\scriptsize$(-4.1)$} & $-1.8${\scriptsize$(-1.3)$} & $-1.8^{**}${\scriptsize$(-2.2)$} & $2.3^{***}${\scriptsize$(2.9)$} & $0.7${\scriptsize$(0.3)$} \\
+Equal country weights (inverse-episode WLS) & 263 & $-8.4^{***}${\scriptsize$(-4.5)$} & $-4.5^{***}${\scriptsize$(-2.7)$} & $-2.4^{*}${\scriptsize$(-1.8)$} & $0.1${\scriptsize$(0.1)$} & $2.5${\scriptsize$(0.5)$} \\
 One-sided (real-time) HP & 218 & $-7.1^{***}${\scriptsize$(-3.4)$} & $-3.3^{**}${\scriptsize$(-2.1)$} & $-2.0${\scriptsize$(-1.5)$} & $0.5${\scriptsize$(0.5)$} & $0.3${\scriptsize$(0.1)$} \\
+Hamilton (2018) filter & 187 & $-5.0^{***}${\scriptsize$(-3.0)$} & $-3.5^{**}${\scriptsize$(-2.0)$} & $-2.2^{*}${\scriptsize$(-1.9)$} & $-1.1${\scriptsize$(-1.1)$} & $-0.9${\scriptsize$(-0.3)$} \\
+Minimum duration $\ge$3 months & 183 & $-5.5^{***}${\scriptsize$(-3.0)$} & $-4.2^{***}${\scriptsize$(-3.2)$} & $-2.4^{**}${\scriptsize$(-2.0)$} & $1.2${\scriptsize$(1.4)$} & $0.7${\scriptsize$(0.3)$} \\
+Merged 1-month positive blips & 208 & $-5.4^{***}${\scriptsize$(-2.7)$} & $-2.5${\scriptsize$(-1.5)$} & $-1.9^{*}${\scriptsize$(-1.8)$} & $1.5${\scriptsize$(1.4)$} & $0.9${\scriptsize$(0.3)$} \\
 True-crisis subsample (Laeven--Valencia) & 25 & $-22.3^{**}${\scriptsize$(-2.3)$} & $-6.0${\scriptsize$(-1.3)$} & $-6.2${\scriptsize$(-1.3)$} & $23.8^{*}${\scriptsize$(1.7)$} & $10.8${\scriptsize$(0.5)$} \\
 Depth threshold $\ge$3\% & 195 & $-6.2^{***}${\scriptsize$(-3.0)$} & $-3.4^{**}${\scriptsize$(-2.4)$} & $-2.1^{*}${\scriptsize$(-1.9)$} & $1.5${\scriptsize$(1.5)$} & $1.2${\scriptsize$(0.5)$} \\
 Depth threshold $\ge$1.5\% & 295 & $-4.8^{***}${\scriptsize$(-3.2)$} & $-2.1^{*}${\scriptsize$(-1.7)$} & $-1.4^{*}${\scriptsize$(-1.8)$} & $2.0^{**}${\scriptsize$(2.3)$} & $0.5${\scriptsize$(0.2)$} \\
 \bottomrule
 \end{tabularx}
-\\[2pt]\footnotesize{Emerging excludes China. Every specification also includes the active-arrangement indicator and the shock-depth control, so the baseline row reproduces the full-cycle column of Table~\ref{tab:main}. The one-sided filter uses an expanding (real-time) Hodrick--Prescott trend; the Laeven--Valencia subsample keeps episodes within a year of a recognised systemic crisis. $^{*}$, $^{**}$, $^{***}$: 10, 5, 1 percent.}
+\\[2pt]\footnotesize{Emerging excludes China. Every specification includes the active-arrangement indicator, and all rows except the second include the downturn-depth control (so the first row reproduces the full-cycle column of Table~\ref{tab:main}). The one-sided filter uses an expanding (real-time) Hodrick--Prescott trend after a 36-month burn-in; the Hamilton (2018) filter defines the cyclical component as the residual from projecting $100\ln(\text{Index}_t)$ on four lags at a 24-month horizon; the minimum-duration row drops spells shorter than three months; the merged-blip row bridges isolated one-month non-negative readings between negative spells; and the Laeven--Valencia subsample keeps episodes within a year of a recognized systemic crisis. $^{*}$, $^{**}$, $^{***}$: 10, 5, 1 percent.}
 \end{table}

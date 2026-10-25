@@ -73,24 +73,29 @@ def main():
         "tab:main",
         "Depth in percent; durations in months. Contraction is peak (start of the negative-gap "
         "spell) to trough (minimum gap), climb is trough to the output gap's return to zero, full "
-        "cycle is peak to the output gap's return to zero. All columns also track "
-        "official support with an indicator for an active IMF-supported arrangement (MONA), so "
-        "the demand effects are estimated conditional on whether an arrangement is in place. "
+        "cycle is peak to the output gap's return to zero. Because climb and full cycle are "
+        "independently top-coded at 60 months for the eight right-censored spells, linear "
+        "coefficients on contraction and climb do not sum identically to the full-cycle "
+        "coefficient. All columns also include an indicator for an active IMF-supported "
+        "arrangement (MONA). "
         "$^{*},^{**},^{***}$: significant at 10, 5, 1 percent.")
 
     ep["comm_note"] = ep.commodity
+    china_parts = ["china_pull_comm", "china_pull_noncomm", "commodity",
+                   "emer_pull", "otheradv_pull", "us_pull"]
     t2 = table(
         ep,
-        [("Depth of downturn", "depth_gap",
-          ["china_pull_comm", "china_pull_noncomm", "commodity", "emer_pull",
-           "otheradv_pull", "us_pull", "trade_open", "program"])],
-        ["china_pull_comm", "china_pull_noncomm", "commodity", "emer_pull",
-         "otheradv_pull", "us_pull", "trade_open"],
-        "The China-depth association is commodity-exporter composition.",
+        [("Depth", "depth_gap", china_parts + ["trade_open", "partner_vol", "program"]),
+         ("Contraction", "t_contraction", china_parts + ["trade_open", "depth_gap", "program"]),
+         ("Climb", "t_climb", china_parts + ["trade_open", "depth_gap", "program"]),
+         ("Full cycle", "t_full", china_parts + ["trade_open", "depth_gap", "program"])],
+        china_parts + ["trade_open", "partner_vol", "depth_gap"],
+        "China demand and the output cycle by commodity-exporter status.",
         "tab:china",
-        "China demand interacted with a commodity-exporter indicator. The effect is present "
-        "only among commodity exporters. The regression also tracks an indicator for an active "
-        "IMF-supported arrangement.")
+        "China demand interacted with a commodity-exporter indicator. Controls match "
+        "Table~\\ref{tab:main} in every column, including an active IMF-supported arrangement "
+        "indicator. Country-clustered $t$-statistics in parentheses. "
+        "$^{*},^{**},^{***}$: significant at 10, 5, 1 percent.")
 
     with open(os.path.join(OUT, "tables.tex"), "w") as f:
         f.write("\n\n".join([t1, t2]) + "\n")

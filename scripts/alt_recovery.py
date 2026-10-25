@@ -42,11 +42,13 @@ def _cell(b, se):
 
 def main():
     ep = build_episodes(one_sided=False, min_depth=2.0)
-    results, agg, ns = {}, {}, {}
+    results, agg, adv, ns = {}, {}, {}, {}
     for label, y, extra in OUTCOMES:
-        # Panel A: total external demand (all partners together).
-        ra = ols(ep, y, ["ext_demand"] + extra)
+        # Panel A: total external demand (all partners together) and combined advanced-economy demand.
+        ra = ols(ep, y, ["ext_demand", "trade_open"] + extra)
         agg[label] = ({name: (b, se) for name, b, se in ra[0]} if ra else {})
+        radv = ols(ep, y, ["adv_pull", "emer_pull", "china_pull", "trade_open"] + extra)
+        adv[label] = ({name: (b, se) for name, b, se in radv[0]} if radv else {})
         # Panel B: the four-partner decomposition + trade openness.
         res = ols(ep, y, PARTNERS + extra)
         if not res:
@@ -56,8 +58,10 @@ def main():
         ns[label] = n
         ea = agg[label].get("ext_demand", (float("nan"), float("nan")))
         et = ea[0] / ea[1] if ea[1] else 0
+        ad = adv[label].get("adv_pull", (float("nan"), float("nan")))
+        adt = ad[0] / ad[1] if ad[1] else 0
         print(f"\n{label} ({y}, n={n}, clusters={G}, R2={r2:.3f})  "
-              f"ext_demand={ea[0]:.2f} (t={et:.2f})")
+              f"ext_demand={ea[0]:.2f} (t={et:.2f})  adv_pull={ad[0]:.2f} (t={adt:.2f})")
         for name in PARTNERS:
             b, se = results[label][name]
             t = b / se if se else 0
@@ -68,20 +72,23 @@ def main():
     cols = [lab for lab, _, _ in OUTCOMES]
     tex = [
         r"\begin{table}[H]", r"\centering\small",
-        r"\caption{Recovery outcomes that do not depend on the HP zero-crossing. The full-cycle "
+        r"\caption{Recovery outcomes that do not depend on a single HP zero-crossing. The full-cycle "
         r"column reproduces the main specification; the persistent-return columns date recovery "
-        r"only once the output gap stays non-negative for three or six months, so a brief crossing "
-        r"of zero cannot mark a recovery; the cumulative-loss column is the area of the negative gap "
-        r"over the episode, a magnitude with no crossing date. Country-clustered $t$-statistics in "
-        r"parentheses.}",
+        r"only once the output gap stays non-negative for three or six consecutive months, so a brief "
+        r"crossing of zero cannot mark a recovery; the cumulative-loss column is the integrated negative "
+        r"output gap over the episode, a magnitude with no crossing date. Country-clustered $t$-statistics "
+        r"in parentheses.}",
         r"\label{tab:altrecovery}",
         r"\begin{tabularx}{\textwidth}{@{}l" + "Y" * len(cols) + r"@{}}", r"\toprule",
         "Demand pull & " + " & ".join(cols) + r" \\ \midrule",
-        r"\multicolumn{" + str(len(cols) + 1) + r"}{@{}l}{\emph{Panel A. All partners}} \\",
-        "External demand & " + " & ".join(
+        r"\multicolumn{" + str(len(cols) + 1) + r"}{@{}l}{\emph{Panel A. Aggregate and combined advanced-economy demand}} \\",
+        "External demand (all partners) & " + " & ".join(
             _cell(*agg[lab].get("ext_demand", (float("nan"), float("nan")))) for lab in cols)
+        + r" \\",
+        "Advanced demand (US + Other adv.) & " + " & ".join(
+            _cell(*adv[lab].get("adv_pull", (float("nan"), float("nan")))) for lab in cols)
         + r" \\ \midrule",
-        r"\multicolumn{" + str(len(cols) + 1) + r"}{@{}l}{\emph{Panel B. By partner type}} \\",
+        r"\multicolumn{" + str(len(cols) + 1) + r"}{@{}l}{\emph{Panel B. Disaggregated by partner type}} \\",
     ]
     for name in PARTNERS:
         row = " & ".join(_cell(*results[lab].get(name, (float("nan"), float("nan"))))

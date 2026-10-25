@@ -76,12 +76,12 @@ def logrank(dur, ev, grp):
     return chi2, float(stats.chi2.sf(chi2, 1)), O1, E1
 
 
-def person_period(ep):
+def person_period(ep, dur_col="t_full"):
     """Expand each episode to one row per at-risk month; y=1 in the recovery month."""
     rows = []
     for _, r in ep.iterrows():
-        T = int(round(r.t_full))
-        recovered = r.t_full < CENSOR
+        T = max(1, int(round(r[dur_col])))
+        recovered = r[dur_col] < CENSOR
         for m in range(1, T + 1):
             y = 1 if (recovered and m == T) else 0
             rows.append({"iso3": r.iso3, "month": m, "y": y,
@@ -89,8 +89,22 @@ def person_period(ep):
     return pd.DataFrame(rows)
 
 
+def fit_cloglog(pp, covs):
+    pp = pp.copy()
+    pp["m1"] = pp.month
+    pp["m2"] = pp.month ** 2
+    pp["m3"] = pp.month ** 3
+    cols = covs + ["m1", "m2", "m3"]
+    X = sm.add_constant(pp[cols].astype(float))
+    model = sm.GLM(pp.y.astype(float), X,
+                   family=sm.families.Binomial(link=sm.families.links.CLogLog()))
+    return model.fit(cov_type="cluster", cov_kwds={"groups": pp.iso3.values})
+
+
 def main():
-    ep = build_episodes().dropna(subset=["t_full"] + XS + ["iso3"]).copy()
+    hp_path = os.path.join(os.path.dirname(__file__), "..", "data", "horserace_hp.csv")
+    ep = (pd.read_csv(hp_path) if os.path.exists(hp_path) else build_episodes())
+    ep = ep.dropna(subset=["t_full", "t_climb"] + XS + ["iso3"]).copy()
     n = len(ep)
     ep["event"] = (ep.t_full < CENSOR).astype(int)
     cens = int((ep.event == 0).sum())
@@ -123,53 +137,64 @@ def main():
     plt.close()
     print("saved output/km_recovery.png")
 
-    # ---- 2. Discrete-time proportional-hazards model (cloglog), clustered by country ----
-    pp = person_period(ep)
-    pp["m1"] = pp.month
-    pp["m2"] = pp.month ** 2
-    pp["m3"] = pp.month ** 3
-    cols = XS + ["m1", "m2", "m3"]
-    X = sm.add_constant(pp[cols].astype(float))
-    model = sm.GLM(pp.y.astype(float), X,
-                   family=sm.families.Binomial(link=sm.families.links.CLogLog()))
-    res = model.fit(cov_type="cluster", cov_kwds={"groups": pp.iso3.values})
+    # ---- 2. Discrete-time proportional-hazards models (cloglog), clustered by country ----
+    pp_full = person_period(ep, "t_full")
+    pp_climb = person_period(ep, "t_climb")
+    xs_nodepth = [c for c in XS if c != "depth_gap"]
+
+    res = fit_cloglog(pp_full, XS)
+    res_nodepth = fit_cloglog(pp_full, xs_nodepth)
+    res_climb = fit_cloglog(pp_climb, XS)
+
     print("\nDiscrete-time hazard (cloglog), country-clustered; coef = log hazard ratio")
-    for c in XS:
-        b, z, pv = res.params[c], res.tvalues[c], res.pvalues[c]
-        print(f"  {c:14s} coef={b:7.3f}  HR={np.exp(b):5.2f}  z={z:5.2f}  p={pv:.3f}")
+    for tag, r, covs in [("Full cycle (with depth)", res, XS),
+                         ("Full cycle (no depth)", res_nodepth, xs_nodepth),
+                         ("Climb phase (from trough)", res_climb, XS)]:
+        print(f"--- {tag} ---")
+        for c in covs:
+            b, z, pv = r.params[c], r.tvalues[c], r.pvalues[c]
+            print(f"  {c:14s} coef={b:7.3f}  HR={np.exp(b):5.2f}  z={z:5.2f}  p={pv:.3f}")
 
     # ---- LaTeX table ----
-    lab = {"us_pull": "US-demand pull", "otheradv_pull": "Other-advanced pull",
-           "emer_pull": "Emerging (ex-China) pull", "china_pull": "China pull",
-           "trade_open": "Trade openness", "depth_gap": "Shock depth",
-           "program": "Active arrangement"}
+    lab = {"us_pull": "US demand", "otheradv_pull": "Other advanced demand",
+           "emer_pull": "Emerging demand (excl.\\ China)", "china_pull": "China demand",
+           "trade_open": "Trade openness", "depth_gap": "Depth of downturn",
+           "program": "Active IMF arrangement"}
+
+    def hcell(r, c):
+        if c not in r.params:
+            return ""
+        b, z = r.params[c], r.tvalues[c]
+        star = f"^{{{'***' if abs(z) > 2.58 else '**' if abs(z) > 1.96 else '*' if abs(z) > 1.64 else ''}}}"
+        if star == "^{}":
+            star = ""
+        return f"${np.exp(b):.2f}$ / ${b:.2f}{star}$ {{\\scriptsize$({z:.1f})$}}"
+
     trows = []
     for c in XS:
-        b, z = res.params[c], res.tvalues[c]
-        star = "***" if abs(z) > 2.58 else "**" if abs(z) > 1.96 else "*" if abs(z) > 1.64 else ""
-        trows.append(f"{lab[c]} & ${np.exp(b):.2f}$ & ${b:.2f}^{{{star}}}$ "
-                     f"{{\\scriptsize$({z:.1f})$}} \\\\")
+        trows.append(f"{lab[c]} & {hcell(res, c)} & {hcell(res_nodepth, c)} & {hcell(res_climb, c)} \\\\")
     tex = [
         r"\begin{table}[H]", r"\centering\small",
         r"\caption{Recovery as a censored time-to-event outcome. The event is the return of the "
         r"output gap to zero; spells that do not return within " + str(CENSOR) + r" months are "
         r"right-censored (" + f"{cens}" + r" of " + f"{n}" + r" episodes, "
-        f"{100*cens/n:.0f}" + r"\%). Estimates are from a discrete-time proportional-hazards model "
+        f"{100*cens/n:.0f}" + r"\%). Estimates are from discrete-time proportional-hazards models "
         r"with a complementary-log-log link, a cubic baseline hazard in the month, and "
-        r"country-clustered standard errors. A hazard ratio above one means faster exit from the "
-        r"downturn; the US-demand pull raises the monthly recovery hazard, the counterpart of its "
-        r"negative coefficient in the linear duration regression of Table~\ref{tab:main}.}",
+        r"country-clustered standard errors. Each cell reports $\text{HR} \;/\; \log(\text{HR})$ with "
+        r"the clustered $z$-statistic in parentheses. Column 1 models the full negative cycle from the "
+        r"peak with baseline controls; column 2 omits the post-onset downturn depth control; column 3 "
+        r"starts the risk clock at the episode trough (modeling the post-trough climb phase).}",
         r"\label{tab:survival}",
-        r"\begin{tabularx}{\textwidth}{@{}lYY@{}}", r"\toprule",
-        r"Covariate & Hazard ratio & Log hazard ratio ($z$) \\ \midrule",
+        r"\begin{tabularx}{\textwidth}{@{}lYYY@{}}", r"\toprule",
+        r"Covariate & (1) Full cycle & (2) Full cycle (no depth) & (3) Climb from trough \\ \midrule",
         *trows,
         r"\midrule",
-        f"Episodes & \\multicolumn{{2}}{{c}}{{{n} ({ep.iso3.nunique()} countries)}} \\\\",
-        f"Person-months at risk & \\multicolumn{{2}}{{c}}{{{len(pp)}}} \\\\",
+        f"Episodes & {n} ({ep.iso3.nunique()} countries) & {n} ({ep.iso3.nunique()} countries) & {n} ({ep.iso3.nunique()} countries) \\\\",
+        f"Episode-months at risk & {len(pp_full)} & {len(pp_full)} & {len(pp_climb)} \\\\",
         r"\bottomrule", r"\end{tabularx}",
         r"\\[2pt]\footnotesize{Hazard ratios are $\exp(\text{coef})$; a value above one raises the "
         r"probability of returning to trend in a given month. The baseline-hazard terms (cubic in "
-        r"the month) are included but not shown. $z$-statistics use country-clustered standard "
+        r"the month) are included in all columns. $z$-statistics use country-clustered standard "
         r"errors. $^{*}$, $^{**}$, $^{***}$: significance at 10, 5, 1 percent.}",
         r"\end{table}",
     ]

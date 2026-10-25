@@ -10,6 +10,7 @@ What explains faster recovery from downturns: external demand from growing tradi
 | `data/` | Panels and raw inputs used by the scripts |
 | `docs/` | Status log (data recipes, findings) and review notes |
 | `laeven_valencia_crisis_dates.csv` | Crisis dates read by the scripts |
+| `MODELS_MODKEN_SNORK.md` | Instructions for accessing and running underlying models from `modken-snork` |
 | `imf_seal_white.png` | Cover-page seal |
 
 ## Build

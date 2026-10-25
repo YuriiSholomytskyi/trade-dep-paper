@@ -1,0 +1,22 @@
+\begin{table}[t]
+\centering\small
+\caption{Regional hub demand and recovery duration. Each economy is assigned to its primary regional export hub (United States, European Union, or China; Table~\ref{tab:appcountries}). Columns 1--2 pool all episodes with hub-bloc fixed effects for the climb phase and the full negative cycle; columns 3--4 estimate the full-cycle specification separately within the US-hub and EU-hub subsamples; column 5 estimates a pooled full-cycle regression interacting own-hub demand with hub-bloc indicators. Country-clustered $t$-statistics in parentheses.}
+\label{tab:hubs}
+\begin{tabularx}{\textwidth}{@{}lYYYYY@{}}
+\toprule
+ & (1) Pooled & (2) Pooled & (3) US-hub & (4) EU-hub & (5) Pooled \\
+ & Climb & Full cycle & Full cycle & Full cycle & Interaction \\ \midrule
+Own-hub demand & $-3.38^{***}$ {\scriptsize$(-3.3)$} & $-3.34^{***}$ {\scriptsize$(-2.8)$} & $-4.52^{***}$ {\scriptsize$(-3.1)$} & $-2.57^{*}$ {\scriptsize$(-1.8)$} & \\
+Own-hub $\times$ US-hub bloc & & & & & $-4.40^{***}$ {\scriptsize$(-3.0)$} \\
+Own-hub $\times$ EU-hub bloc & & & & & $-2.57^{*}$ {\scriptsize$(-1.8)$} \\
+Non-hub demand & $-0.99$ {\scriptsize$(-1.5)$} & $-1.29$ {\scriptsize$(-1.6)$} & $-0.45$ {\scriptsize$(-0.4)$} & $-1.71^{*}$ {\scriptsize$(-1.6)$} & $-1.29$ {\scriptsize$(-1.6)$} \\
+Trade openness & $-0.65$ {\scriptsize$(-0.3)$} & $0.28$ {\scriptsize$(0.1)$} & $0.33$ {\scriptsize$(0.1)$} & $-0.82$ {\scriptsize$(-0.4)$} & $0.03$ {\scriptsize$(0.0)$} \\
+Depth of downturn & $0.23^{***}$ {\scriptsize$(3.9)$} & $0.33^{***}$ {\scriptsize$(5.0)$} & $0.23^{**}$ {\scriptsize$(2.5)$} & $0.32^{***}$ {\scriptsize$(4.5)$} & $0.31^{***}$ {\scriptsize$(5.2)$} \\
+\midrule
+Wild bootstrap $p$ (own-hub) & $0.006$ & $0.021$ & $0.008$ & $0.129$ & \\
+Episodes & 263 & 263 & 103 & 156 & 263 \\
+Countries & 34 & 34 & 9 & 24 & 34 \\
+\bottomrule
+\end{tabularx}
+\\[2pt]\footnotesize{All columns control for an active IMF-supported arrangement (MONA); columns 1, 2, and 5 include hub-bloc fixed effects, and column 5 also includes the China-hub interaction (4 episodes in Mongolia). Wild cluster bootstrap $p$-values use 4,999 Rademacher draws imposed under the null hypothesis (Cameron, Gelbach, and Miller, 2008). $^{*},^{**},^{***}$: significant at 10, 5, 1 percent.}
+\end{table}

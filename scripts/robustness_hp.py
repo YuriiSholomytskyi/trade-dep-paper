@@ -14,11 +14,15 @@ from build_horserace_hp import build_episodes, ols  # noqa: E402
 OUT = os.path.join(os.path.dirname(__file__), "..", "output")
 XS = ["us_pull", "otheradv_pull", "emer_pull", "china_pull", "trade_open", "depth_gap", "program"]
 SPECS = [
-    ("Baseline (2-sided HP, depth>=2)", dict(one_sided=False, min_depth=2.0)),
-    ("One-sided (real-time) HP",        dict(one_sided=True,  min_depth=2.0)),
-    ("True-crisis subsample (L-V)",     dict(one_sided=False, min_depth=2.0, crisis_only=True)),
-    ("Depth threshold >=3%",            dict(one_sided=False, min_depth=3.0)),
-    ("Depth threshold >=1.5%",          dict(one_sided=False, min_depth=1.5)),
+    ("Baseline (2-sided HP, depth>=2)",          dict(one_sided=False, min_depth=2.0), True),
+    ("Baseline (omitting depth control)",        dict(one_sided=False, min_depth=2.0), False),
+    ("One-sided (real-time) HP",                 dict(one_sided=True,  min_depth=2.0), True),
+    ("Hamilton (2018) filter",                   dict(one_sided=False, min_depth=2.0, filter_type="hamilton"), True),
+    ("Minimum duration >=3 months",              dict(one_sided=False, min_depth=2.0, min_dur=3), True),
+    ("Merged 1-month positive blips",            dict(one_sided=False, min_depth=2.0, merge_gap=1), True),
+    ("True-crisis subsample (L-V)",              dict(one_sided=False, min_depth=2.0, crisis_only=True), True),
+    ("Depth threshold >=3%",                     dict(one_sided=False, min_depth=3.0), True),
+    ("Depth threshold >=1.5%",                   dict(one_sided=False, min_depth=1.5), True),
 ]
 REPORT = ["us_pull", "otheradv_pull", "emer_pull", "china_pull", "trade_open"]
 
@@ -38,9 +42,16 @@ def main():
               "  ".join(f"{v:>12s}" for v in REPORT))
     lines.append(header); lines.append("-" * len(header))
     texrows = []
-    for label, kw in SPECS:
-        ep = build_episodes(**kw)
-        res = ols(ep, "t_full", XS)
+    base_ep = None
+    for label, kw, use_depth in SPECS:
+        if kw == dict(one_sided=False, min_depth=2.0) and base_ep is not None:
+            ep = base_ep
+        else:
+            ep = build_episodes(**kw)
+            if kw == dict(one_sided=False, min_depth=2.0):
+                base_ep = ep
+        xs_use = XS if use_depth else [x for x in XS if x != "depth_gap"]
+        res = ols(ep, "t_full", xs_use)
         if not res:
             lines.append(f"{label:34s}  (insufficient obs)"); continue
         coefs, r2, n, G = res
@@ -76,11 +87,16 @@ def main():
         r"Specification & Ep. & US & Other adv. & Emerging & China & Openness \\ \midrule",
         *texrows,
         r"\bottomrule", r"\end{tabularx}",
-        r"\\[2pt]\footnotesize{Emerging excludes China. Every specification also includes the "
-        r"active-arrangement indicator and the shock-depth control, so the baseline row reproduces "
-        r"the full-cycle column of Table~\ref{tab:main}. The one-sided filter uses an expanding "
-        r"(real-time) Hodrick--Prescott trend; the Laeven--Valencia subsample keeps episodes within "
-        r"a year of a recognised systemic crisis. $^{*}$, $^{**}$, $^{***}$: 10, 5, 1 percent.}",
+        r"\\[2pt]\footnotesize{Emerging excludes China. Every specification includes the "
+        r"active-arrangement indicator, and all rows except the second include the downturn-depth "
+        r"control (so the first row reproduces the full-cycle column of Table~\ref{tab:main}). "
+        r"The one-sided filter uses an expanding (real-time) Hodrick--Prescott trend after a "
+        r"36-month burn-in; the Hamilton (2018) filter defines the cyclical component as the "
+        r"residual from projecting $100\ln(\text{Index}_t)$ on four lags at a 24-month horizon; "
+        r"the minimum-duration row drops spells shorter than three months; the merged-blip row "
+        r"bridges isolated one-month non-negative readings between negative spells; and the "
+        r"Laeven--Valencia subsample keeps episodes within a year of a recognized systemic crisis. "
+        r"$^{*}$, $^{**}$, $^{***}$: 10, 5, 1 percent.}",
         r"\end{table}",
     ]
     with open(os.path.join(OUT, "tables_robustness.tex"), "w", encoding="utf-8") as f:

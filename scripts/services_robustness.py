@@ -100,10 +100,10 @@ def main():
     # advanced-partner growth already in panel as otheradv_pull + us_pull (the growing-AE demand);
     # services/remittances flow mostly from advanced + Gulf economies, proxied by AE demand.
     m["ae_pull"] = m["us_pull"].fillna(0) + m["otheradv_pull"].fillna(0)
-    # broad external demand: goods shift-share + intensity-weighted AE growth for services & remits.
-    z = lambda s: (s - s.mean()) / s.std()
-    m["serv_dem"] = z(m["serv_exp_gdp"]) * m["ae_pull"]
-    m["remit_dem"] = z(m["remit_gdp"]) * m["ae_pull"]
+    # broad external demand: goods shift-share + non-negative GDP-share-weighted AE growth
+    # for services exports and remittances (avoiding negative z-score weights).
+    m["serv_dem"] = (m["serv_exp_gdp"] / 100.0) * m["ae_pull"]
+    m["remit_dem"] = (m["remit_gdp"] / 100.0) * m["ae_pull"]
     m["broad_demand"] = m["ext_demand"] + m["serv_dem"] + m["remit_dem"]
 
     # high-dependence indicators (top tercile)
@@ -122,22 +122,26 @@ def main():
                 out.append((k, b, t))
         return out, res[2], res[3]
 
+    base_parts = ["us_pull", "otheradv_pull", "emer_pull", "china_pull"]
+    base_ctrl = ["trade_open", "depth_gap", "program"]
+
     print("\n=== (1) Goods partner-demand robust to services/remittance/tourism intensity ===")
-    r1 = ols(m, "t_full", ["us_pull", "emer_pull", "trade_open",
-                           "remit_gdp", "serv_exp_gdp", "tour_xp"])
-    for k, b, t in line(r1, ["us_pull", "emer_pull", "remit_gdp", "serv_exp_gdp", "tour_xp"])[0]:
+    r1 = ols(m, "t_full", base_parts + ["remit_gdp", "serv_exp_gdp", "tour_xp"] + base_ctrl)
+    for k, b, t in line(r1, base_parts + ["remit_gdp", "serv_exp_gdp", "tour_xp", "trade_open", "depth_gap"])[0]:
         print(f"  {k:14s} {b:7.3f} (t={t:5.2f})")
     print(f"  n={r1[2]} clusters={r1[3]}")
 
     print("\n=== (2) Heterogeneity: US demand x services/remittance dependence ===")
-    r2 = ols(m, "t_full", ["us_pull", "us_x_serv", "us_x_remit", "emer_pull", "trade_open"])
-    for k, b, t in line(r2, ["us_pull", "us_x_serv", "us_x_remit"])[0]:
+    r2 = ols(m, "t_full", ["us_pull", "us_x_serv", "us_x_remit", "hi_serv", "hi_remit",
+                           "otheradv_pull", "emer_pull", "china_pull"] + base_ctrl)
+    for k, b, t in line(r2, ["us_pull", "us_x_serv", "us_x_remit", "hi_serv", "hi_remit",
+                             "otheradv_pull", "emer_pull", "china_pull", "trade_open", "depth_gap"])[0]:
         print(f"  {k:14s} {b:7.3f} (t={t:5.2f})")
     print(f"  n={r2[2]} clusters={r2[3]}")
 
     print("\n=== (3) Broad external demand (goods + services + remittances) ===")
-    r3a = ols(m, "t_full", ["ext_demand", "trade_open", "program"])
-    r3b = ols(m, "t_full", ["broad_demand", "trade_open", "program"])
+    r3a = ols(m, "t_full", ["ext_demand"] + base_ctrl)
+    r3b = ols(m, "t_full", ["broad_demand"] + base_ctrl)
     for tag, r in [("goods only  ", r3a), ("broad demand", r3b)]:
         d = dict((k, (b, s)) for k, b, s in r[0])
         key = "ext_demand" if "ext_demand" in d else "broad_demand"
@@ -159,12 +163,17 @@ def main():
 
     # (row label, (spec1 res,key), (spec2 res,key), (spec3 res,key))
     spec = [
-        ("US / goods partner demand", (r1, "us_pull"), (r2, "us_pull"), (None, None)),
+        ("US demand", (r1, "us_pull"), (r2, "us_pull"), (None, None)),
         ("Broad external demand", (None, None), (None, None), (r3b, "broad_demand")),
         ("US demand $\\times$ high services", (None, None), (r2, "us_x_serv"), (None, None)),
         ("US demand $\\times$ high remittances", (None, None), (r2, "us_x_remit"), (None, None)),
-        ("Emerging partner demand", (r1, "emer_pull"), (r2, "emer_pull"), (None, None)),
+        ("High services indicator", (None, None), (r2, "hi_serv"), (None, None)),
+        ("High remittances indicator", (None, None), (r2, "hi_remit"), (None, None)),
+        ("Other advanced demand", (r1, "otheradv_pull"), (r2, "otheradv_pull"), (None, None)),
+        ("Emerging demand (excl.\\ China)", (r1, "emer_pull"), (r2, "emer_pull"), (None, None)),
+        ("China demand", (r1, "china_pull"), (r2, "china_pull"), (None, None)),
         ("Trade openness", (r1, "trade_open"), (r2, "trade_open"), (r3b, "trade_open")),
+        ("Depth of downturn", (r1, "depth_gap"), (r2, "depth_gap"), (r3b, "depth_gap")),
         ("Remittances, \\% GDP", (r1, "remit_gdp"), (None, None), (None, None)),
         ("Services exports, \\% GDP", (r1, "serv_exp_gdp"), (None, None), (None, None)),
         ("Tourism, \\% of exports", (r1, "tour_xp"), (None, None), (None, None)),
@@ -179,10 +188,12 @@ def main():
         r"\begin{table}[H]", r"\centering\small",
         r"\caption{External demand beyond goods: services and remittances. The dependent variable "
         r"is the full negative cycle in months; country-clustered $t$-statistics in parentheses. "
-        r"Column 1 adds World Bank intensity controls to the goods partner-demand specification; "
-        r"column 2 interacts US demand with top-tercile services and remittance dependence; "
-        r"column 3 replaces the goods shift-share with a broad measure that augments it with the "
-        r"services- and remittance-intensity-weighted growth of advanced partners.}",
+        r"Column 1 adds World Bank pre-downturn intensity controls to the full four-partner "
+        r"specification of Table~\ref{tab:main}; column 2 interacts US demand with top-tercile "
+        r"services and remittance dependence (including uninteracted main effects); column 3 "
+        r"replaces the goods shift-share with a broad external demand measure that augments "
+        r"aggregate goods partner demand with GDP-share-weighted services and remittance "
+        r"exposures to advanced-partner growth.}",
         r"\label{tab:services}",
         r"\begin{tabularx}{\textwidth}{@{}lYYY@{}}", r"\toprule",
         r" & (1) controls & (2) heterogeneity & (3) broad demand \\ \midrule",
@@ -191,13 +202,14 @@ def main():
     tex += [
         r"\midrule",
         f"Episodes & {r1[2]} & {r2[2]} & {r3b[2]} \\\\",
-        f"Clusters & {r1[3]} & {r2[3]} & {r3b[3]} \\\\",
+        f"Countries & {r1[3]} & {r2[3]} & {r3b[3]} \\\\",
         r"\bottomrule", r"\end{tabularx}",
         r"\\[2pt]\footnotesize{Intensities are pre-downturn values from the World Bank WDI "
-        r"(remittances received, services exports, international tourism receipts). Bilateral "
-        r"partner data for services are unavailable, so the broad measure proxies the source of "
-        r"services and remittance income by advanced-partner growth; the goods component is the "
-        r"bilateral shift-share of the baseline.}",
+        r"(personal remittances received as \% of GDP, commercial services exports as \% of GDP, "
+        r"and international tourism receipts as \% of total exports). Missing pre-downturn WDI "
+        r"observations are imputed at the sample median. All columns include the active IMF "
+        r"arrangement indicator (MONA) and downturn depth. $^{*},^{**},^{***}$: significant at "
+        r"10, 5, 1 percent.}",
         r"\end{table}",
     ]
     with open(os.path.join(OUT, "tables_services.tex"), "w", encoding="utf-8") as f:

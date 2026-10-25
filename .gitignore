@@ -1,4 +1,10 @@
-# LaTeX build artifacts (compiled PDFs are tracked on purpose)
+# Script-generated outputs & compiled documents (PDF and PNG)
+*.pdf
+*.png
+# Static assets (not produced by scripts)
+!imf_seal_white.png
+
+# LaTeX build artifacts
 *.aux
 *.log
 *.out
