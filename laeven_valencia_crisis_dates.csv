@@ -1,0 +1,558 @@
+country,iso3,crisis_type,start_year
+"China, P.R.",CHN,banking,1998
+"Congo, Dem. Rep. of",COD,banking,1983
+"Congo, Dem. Rep. of",COD,currency,1976
+"Congo, Dem. Rep. of",COD,debt,1976
+"Congo, Dem. Rep. of",COD,debt_restructuring,1989
+"Congo, Rep. of",COG,banking,1992
+"Congo, Rep. of",COG,currency,1994
+"Congo, Rep. of",COG,debt,1986
+"Congo, Rep. of",COG,debt_restructuring,1992
+"Gambia, The",GMB,currency,1985
+"Gambia, The",GMB,debt,1986
+"Gambia, The",GMB,debt_restructuring,1988
+"Iran, I.R. of",IRN,currency,1985
+"Iran, I.R. of",IRN,debt,1992
+"Iran, I.R. of",IRN,debt_restructuring,1994
+"Serbia, Republic of",SRB,currency,2000
+"Yugoslavia, SFR",YUG,debt,1983
+"Yugoslavia, SFR",YUG,debt_restructuring,1988
+Central African Rep.,CAF,banking,1976
+Chile,CHL,banking,1976
+Spain,ESP,banking,1977
+Argentina,ARG,banking,1980
+Egypt,EGY,banking,1980
+Morocco,MAR,banking,1980
+Chile,CHL,banking,1981
+Mexico,MEX,banking,1981
+Uruguay,URY,banking,1981
+Colombia,COL,banking,1982
+Ecuador,ECU,banking,1982
+Ghana,GHA,banking,1982
+Kuwait,KWT,banking,1982
+Turkey,TUR,banking,1982
+Chad,TCD,banking,1983
+Equatorial Guinea,GNQ,banking,1983
+Israel,ISR,banking,1983
+Niger,NER,banking,1983
+Peru,PER,banking,1983
+Philippines,PHL,banking,1983
+Thailand,THA,banking,1983
+Mauritania,MRT,banking,1984
+Guinea,GIN,banking,1985
+Kenya,KEN,banking,1985
+Bolivia,BOL,banking,1986
+Bangladesh,BGD,banking,1987
+Cameroon,CMR,banking,1987
+Costa Rica,CRI,banking,1987
+Mali,MLI,banking,1987
+Mozambique,MOZ,banking,1987
+Tanzania,TZA,banking,1987
+Benin,BEN,banking,1988
+Cote d'Ivoire,CIV,banking,1988
+Madagascar,MDG,banking,1988
+Nepal,NPL,banking,1988
+Panama,PAN,banking,1988
+Senegal,SEN,banking,1988
+United States,USA,banking,1988
+Argentina,ARG,banking,1989
+El Salvador,SLV,banking,1989
+Jordan,JOR,banking,1989
+Sri Lanka,LKA,banking,1989
+Algeria,DZA,banking,1990
+Brazil,BRA,banking,1990
+Burkina Faso,BFA,banking,1990
+Lebanon,LBN,banking,1990
+Nicaragua,NIC,banking,1990
+Sierra Leone,SLE,banking,1990
+Djibouti,DJI,banking,1991
+Finland,FIN,banking,1991
+Georgia,GEO,banking,1991
+Hungary,HUN,banking,1991
+Liberia,LBR,banking,1991
+Nigeria,NGA,banking,1991
+Norway,NOR,banking,1991
+Sweden,SWE,banking,1991
+Tunisia,TUN,banking,1991
+Bosnia and Herzegovina,BIH,banking,1992
+Chad,TCD,banking,1992
+Estonia,EST,banking,1992
+Kenya,KEN,banking,1992
+Poland,POL,banking,1992
+Sao Tome and Principe,STP,banking,1992
+Slovenia,SVN,banking,1992
+Cape Verde,CPV,banking,1993
+Eritrea,ERI,banking,1993
+Guinea,GIN,banking,1993
+Guyana,GUY,banking,1993
+India,IND,banking,1993
+Macedonia,MKD,banking,1993
+Togo,TGO,banking,1993
+Albania,ALB,banking,1994
+Armenia,ARM,banking,1994
+Bolivia,BOL,banking,1994
+Brazil,BRA,banking,1994
+Burundi,BDI,banking,1994
+Costa Rica,CRI,banking,1994
+Haiti,HTI,banking,1994
+Mexico,MEX,banking,1994
+Uganda,UGA,banking,1994
+Venezuela,VEN,banking,1994
+Argentina,ARG,banking,1995
+Azerbaijan,AZE,banking,1995
+Belarus,BLR,banking,1995
+Cameroon,CMR,banking,1995
+Central African Rep.,CAF,banking,1995
+Guinea-Bissau,GNB,banking,1995
+Kyrgyz Republic,KGZ,banking,1995
+Latvia,LVA,banking,1995
+Lithuania,LTU,banking,1995
+Paraguay,PRY,banking,1995
+Swaziland,SWZ,banking,1995
+Zambia,ZMB,banking,1995
+Zimbabwe,ZWE,banking,1995
+Bulgaria,BGR,banking,1996
+Czech Republic,CZE,banking,1996
+Jamaica,JAM,banking,1996
+Yemen,YEM,banking,1996
+Indonesia,IDN,banking,1997
+Japan,JPN,banking,1997
+Korea,KOR,banking,1997
+Malaysia,MYS,banking,1997
+Philippines,PHL,banking,1997
+Thailand,THA,banking,1997
+Vietnam,VNM,banking,1997
+Colombia,COL,banking,1998
+Croatia,HRV,banking,1998
+Ecuador,ECU,banking,1998
+Romania,ROU,banking,1998
+Russia,RUS,banking,1998
+Slovak Republic,SVK,banking,1998
+Ukraine,UKR,banking,1998
+Nicaragua,NIC,banking,2000
+Turkey,TUR,banking,2000
+Argentina,ARG,banking,2001
+Uruguay,URY,banking,2002
+Dominican Republic,DOM,banking,2003
+United Kingdom,GBR,banking,2007
+United States,USA,banking,2007
+Austria,AUT,banking,2008
+Belgium,BEL,banking,2008
+Denmark,DNK,banking,2008
+France,FRA,banking,2008
+Germany,DEU,banking,2008
+Greece,GRC,banking,2008
+Hungary,HUN,banking,2008
+Iceland,ISL,banking,2008
+Ireland,IRL,banking,2008
+Italy,ITA,banking,2008
+Kazakhstan,KAZ,banking,2008
+Latvia,LVA,banking,2008
+Luxembourg,LUX,banking,2008
+Mongolia,MNG,banking,2008
+Netherlands,NLD,banking,2008
+Portugal,PRT,banking,2008
+Russia,RUS,banking,2008
+Slovenia,SVN,banking,2008
+Spain,ESP,banking,2008
+Sweden,SWE,banking,2008
+Switzerland,CHE,banking,2008
+Ukraine,UKR,banking,2008
+Nigeria,NGA,banking,2009
+Cyprus,CYP,banking,2011
+Guinea-Bissau,GNB,banking,2014
+Moldova,MDA,banking,2014
+Ukraine,UKR,banking,2014
+Lebanon,LBN,banking,2020
+Ghana,GHA,banking,2022
+Sri Lanka,LKA,banking,2022
+Cambodia,KHM,currency,1971
+Chile,CHL,currency,1972
+Lao People’s Dem. Rep.,LAO,currency,1972
+Pakistan,PAK,currency,1972
+Uruguay,URY,currency,1972
+Vietnam,VNM,currency,1972
+Bolivia,BOL,currency,1973
+Argentina,ARG,currency,1975
+Iceland,ISL,currency,1975
+Israel,ISR,currency,1975
+Maldives,MDV,currency,1975
+Myanmar,MMR,currency,1975
+Bangladesh,BGD,currency,1976
+Brazil,BRA,currency,1976
+Peru,PER,currency,1976
+Mexico,MEX,currency,1977
+Ghana,GHA,currency,1978
+Jamaica,JAM,currency,1978
+Lao People’s Dem. Rep.,LAO,currency,1978
+Sri Lanka,LKA,currency,1978
+Turkey,TUR,currency,1978
+Egypt,EGY,currency,1979
+Indonesia,IDN,currency,1979
+Nicaragua,NIC,currency,1979
+Equatorial Guinea,GNQ,currency,1980
+Guinea-Bissau,GNB,currency,1980
+Israel,ISR,currency,1980
+Uganda,UGA,currency,1980
+Argentina,ARG,currency,1981
+Bolivia,BOL,currency,1981
+Costa Rica,CRI,currency,1981
+Iceland,ISL,currency,1981
+Italy,ITA,currency,1981
+Morocco,MAR,currency,1981
+New Caledonia,NCL,currency,1981
+Peru,PER,currency,1981
+Sudan,SDN,currency,1981
+Vietnam,VNM,currency,1981
+Brazil,BRA,currency,1982
+Chile,CHL,currency,1982
+Ecuador,ECU,currency,1982
+Guinea,GIN,currency,1982
+Mexico,MEX,currency,1982
+Ghana,GHA,currency,1983
+Greece,GRC,currency,1983
+Jamaica,JAM,currency,1983
+Nigeria,NGA,currency,1983
+Philippines,PHL,currency,1983
+Portugal,PRT,currency,1983
+Sierra Leone,SLE,currency,1983
+Spain,ESP,currency,1983
+Uruguay,URY,currency,1983
+Zambia,ZMB,currency,1983
+Zimbabwe,ZWE,currency,1983
+Botswana,BWA,currency,1984
+Lebanon,LBN,currency,1984
+Madagascar,MDG,currency,1984
+Namibia,NAM,currency,1984
+Nepal,NPL,currency,1984
+New Zealand,NZL,currency,1984
+Paraguay,PRY,currency,1984
+South Africa,ZAF,currency,1984
+Turkey,TUR,currency,1984
+Venezuela,VEN,currency,1984
+Colombia,COL,currency,1985
+Dominican Republic,DOM,currency,1985
+Israel,ISR,currency,1985
+Lesotho,LSO,currency,1985
+Nicaragua,NIC,currency,1985
+Swaziland,SWZ,currency,1985
+Tanzania,TZA,currency,1985
+Yemen,YEM,currency,1985
+El Salvador,SLV,currency,1986
+Guatemala,GTM,currency,1986
+Lao People’s Dem. Rep.,LAO,currency,1986
+Trinidad and Tobago,TTO,currency,1986
+Argentina,ARG,currency,1987
+Brazil,BRA,currency,1987
+Guyana,GUY,currency,1987
+Mozambique,MOZ,currency,1987
+Sao Tome and Principe,STP,currency,1987
+Vietnam,VNM,currency,1987
+Algeria,DZA,currency,1988
+Peru,PER,currency,1988
+Sudan,SDN,currency,1988
+Syrian Arab Republic,SYR,currency,1988
+Uganda,UGA,currency,1988
+Iceland,ISL,currency,1989
+Jordan,JOR,currency,1989
+Nigeria,NGA,currency,1989
+Paraguay,PRY,currency,1989
+Sierra Leone,SLE,currency,1989
+Venezuela,VEN,currency,1989
+Zambia,ZMB,currency,1989
+Dominican Republic,DOM,currency,1990
+Egypt,EGY,currency,1990
+Honduras,HND,currency,1990
+Lebanon,LBN,currency,1990
+Mongolia,MNG,currency,1990
+Myanmar,MMR,currency,1990
+Nicaragua,NIC,currency,1990
+Suriname,SUR,currency,1990
+Tanzania,TZA,currency,1990
+Uruguay,URY,currency,1990
+Angola,AGO,currency,1991
+Costa Rica,CRI,currency,1991
+Jamaica,JAM,currency,1991
+Rwanda,RWA,currency,1991
+Turkey,TUR,currency,1991
+Zimbabwe,ZWE,currency,1991
+Brazil,BRA,currency,1992
+Cambodia,KHM,currency,1992
+Estonia,EST,currency,1992
+Georgia,GEO,currency,1992
+Haiti,HTI,currency,1992
+Latvia,LVA,currency,1992
+Lithuania,LTU,currency,1992
+Nepal,NPL,currency,1992
+Sao Tome and Principe,STP,currency,1992
+Ethiopia,ETH,currency,1993
+Finland,FIN,currency,1993
+Ghana,GHA,currency,1993
+Kenya,KEN,currency,1993
+Mauritania,MRT,currency,1993
+Sudan,SDN,currency,1993
+Sweden,SWE,currency,1993
+Algeria,DZA,currency,1994
+Benin,BEN,currency,1994
+Burkina Faso,BFA,currency,1994
+Cameroon,CMR,currency,1994
+Central African Rep.,CAF,currency,1994
+Chad,TCD,currency,1994
+Comoros,COM,currency,1994
+Cote d'Ivoire,CIV,currency,1994
+Equatorial Guinea,GNQ,currency,1994
+Gabon,GAB,currency,1994
+Guinea-Bissau,GNB,currency,1994
+Madagascar,MDG,currency,1994
+Malawi,MWI,currency,1994
+Mali,MLI,currency,1994
+Niger,NER,currency,1994
+Senegal,SEN,currency,1994
+Togo,TGO,currency,1994
+Venezuela,VEN,currency,1994
+Mexico,MEX,currency,1995
+Papua New Guinea,PNG,currency,1995
+Suriname,SUR,currency,1995
+Yemen,YEM,currency,1995
+Angola,AGO,currency,1996
+Bulgaria,BGR,currency,1996
+Myanmar,MMR,currency,1996
+Romania,ROU,currency,1996
+Turkey,TUR,currency,1996
+Zambia,ZMB,currency,1996
+Albania,ALB,currency,1997
+Belarus,BLR,currency,1997
+Kyrgyz Republic,KGZ,currency,1997
+Lao People’s Dem. Rep.,LAO,currency,1997
+Mongolia,MNG,currency,1997
+Nigeria,NGA,currency,1997
+Sao Tome and Principe,STP,currency,1997
+Fiji,FJI,currency,1998
+Indonesia,IDN,currency,1998
+Korea,KOR,currency,1998
+Malaysia,MYS,currency,1998
+Philippines,PHL,currency,1998
+Russia,RUS,currency,1998
+Sierra Leone,SLE,currency,1998
+Thailand,THA,currency,1998
+Ukraine,UKR,currency,1998
+Zimbabwe,ZWE,currency,1998
+Brazil,BRA,currency,1999
+Ecuador,ECU,currency,1999
+Georgia,GEO,currency,1999
+Kazakhstan,KAZ,currency,1999
+Moldova,MDA,currency,1999
+Tajikistan,TJK,currency,1999
+Ghana,GHA,currency,2000
+Uzbekistan,UZB,currency,2000
+Myanmar,MMR,currency,2001
+Suriname,SUR,currency,2001
+Turkey,TUR,currency,2001
+Argentina,ARG,currency,2002
+Libya,LBY,currency,2002
+Paraguay,PRY,currency,2002
+Uruguay,URY,currency,2002
+Venezuela,VEN,currency,2002
+Dominican Republic,DOM,currency,2003
+Haiti,HTI,currency,2003
+Zimbabwe,ZWE,currency,2003
+Madagascar,MDG,currency,2004
+Guinea,GIN,currency,2005
+Myanmar,MMR,currency,2007
+Iceland,ISL,currency,2008
+Seychelles,SYC,currency,2008
+Turkmenistan,TKM,currency,2008
+Belarus,BLR,currency,2009
+Ghana,GHA,currency,2009
+Ukraine,UKR,currency,2009
+Zambia,ZMB,currency,2009
+Venezuela,VEN,currency,2010
+Malawi,MWI,currency,2012
+Myanmar,MMR,currency,2012
+Sri Lanka,LKA,currency,2012
+Sudan,SDN,currency,2012
+Argentina,ARG,currency,2013
+Ghana,GHA,currency,2014
+Russia,RUS,currency,2014
+Ukraine,UKR,currency,2014
+Angola,AGO,currency,2015
+Azerbaijan,AZE,currency,2015
+Belarus,BLR,currency,2015
+Brazil,BRA,currency,2015
+Kazakhstan,KAZ,currency,2015
+Lesotho,LSO,currency,2015
+Mozambique,MOZ,currency,2015
+Namibia,NAM,currency,2015
+South Africa,ZAF,currency,2015
+South Sudan,SSD,currency,2015
+Swaziland,SWZ,currency,2015
+Tajikistan,TJK,currency,2015
+Zambia,ZMB,currency,2015
+Egypt,EGY,currency,2016
+Nigeria,NGA,currency,2016
+Suriname,SUR,currency,2016
+Argentina,ARG,currency,2018
+Turkey,TUR,currency,2018
+Lebanon,LBN,currency,2019
+Turkey,TUR,currency,2021
+Egypt,EGY,currency,2022
+Ghana,GHA,currency,2022
+Russia,RUS,currency,2022
+Sri Lanka,LKA,currency,2022
+Argentina,ARG,currency,2023
+Nigeria,NGA,currency,2023
+Sierra Leone,SLE,debt,1977
+Jamaica,JAM,debt,1978
+Peru,PER,debt,1978
+Turkey,TUR,debt,1978
+Sudan,SDN,debt,1979
+Togo,TGO,debt,1979
+Bolivia,BOL,debt,1980
+Liberia,LBR,debt,1980
+Nicaragua,NIC,debt,1980
+Costa Rica,CRI,debt,1981
+Honduras,HND,debt,1981
+Madagascar,MDG,debt,1981
+Poland,POL,debt,1981
+Senegal,SEN,debt,1981
+Uganda,UGA,debt,1981
+Argentina,ARG,debt,1982
+Dominican Republic,DOM,debt,1982
+Ecuador,ECU,debt,1982
+Guyana,GUY,debt,1982
+Malawi,MWI,debt,1982
+Mexico,MEX,debt,1982
+Paraguay,PRY,debt,1982
+Romania,ROU,debt,1982
+Venezuela,VEN,debt,1982
+Brazil,BRA,debt,1983
+Chile,CHL,debt,1983
+Morocco,MAR,debt,1983
+Niger,NER,debt,1983
+Nigeria,NGA,debt,1983
+Panama,PAN,debt,1983
+Philippines,PHL,debt,1983
+Uruguay,URY,debt,1983
+Zambia,ZMB,debt,1983
+Cote d'Ivoire,CIV,debt,1984
+Egypt,EGY,debt,1984
+Mozambique,MOZ,debt,1984
+Tanzania,TZA,debt,1984
+Guinea,GIN,debt,1985
+South Africa,ZAF,debt,1985
+Vietnam,VNM,debt,1985
+Gabon,GAB,debt,1986
+Angola,AGO,debt,1988
+Argentina,ARG,debt,1989
+Cameroon,CMR,debt,1989
+Jordan,JOR,debt,1989
+Trinidad and Tobago,TTO,debt,1989
+Albania,ALB,debt,1990
+Bulgaria,BGR,debt,1990
+Russia,RUS,debt,1998
+Ukraine,UKR,debt,1998
+Ecuador,ECU,debt,1999
+Indonesia,IDN,debt,1999
+Pakistan,PAK,debt,1999
+Argentina,ARG,debt,2001
+Cote d'Ivoire,CIV,debt,2001
+Dominica,DMA,debt,2002
+Gabon,GAB,debt,2002
+Moldova,MDA,debt,2002
+Uruguay,URY,debt,2002
+Dominican Republic,DOM,debt,2003
+Nicaragua,NIC,debt,2003
+Grenada,GRD,debt,2004
+Belize,BLZ,debt,2007
+Ecuador,ECU,debt,2008
+Nicaragua,NIC,debt,2008
+Seychelles,SYC,debt,2008
+Cote d'Ivoire,CIV,debt,2010
+Jamaica,JAM,debt,2010
+Belize,BLZ,debt,2012
+Greece,GRC,debt,2012
+Cyprus,CYP,debt,2013
+Argentina,ARG,debt,2014
+Ukraine,UKR,debt,2015
+Belize,BLZ,debt,2017
+Venezuela,VEN,debt,2017
+Argentina,ARG,debt,2020
+Belize,BLZ,debt,2020
+Ecuador,ECU,debt,2020
+Lebanon,LBN,debt,2020
+Suriname,SUR,debt,2020
+Zambia,ZMB,debt,2020
+Ghana,GHA,debt,2022
+Russia,RUS,debt,2022
+Sri Lanka,LKA,debt,2022
+Ethiopia,ETH,debt,2023
+Turkey,TUR,debt_restructuring,1982
+Sudan,SDN,debt_restructuring,1985
+Romania,ROU,debt_restructuring,1987
+Malawi,MWI,debt_restructuring,1988
+Trinidad and Tobago,TTO,debt_restructuring,1989
+Chile,CHL,debt_restructuring,1990
+Costa Rica,CRI,debt_restructuring,1990
+Jamaica,JAM,debt_restructuring,1990
+Mexico,MEX,debt_restructuring,1990
+Morocco,MAR,debt_restructuring,1990
+Venezuela,VEN,debt_restructuring,1990
+Mozambique,MOZ,debt_restructuring,1991
+Niger,NER,debt_restructuring,1991
+Uruguay,URY,debt_restructuring,1991
+Albania,ALB,debt_restructuring,1992
+Angola,AGO,debt_restructuring,1992
+Bolivia,BOL,debt_restructuring,1992
+Cameroon,CMR,debt_restructuring,1992
+Egypt,EGY,debt_restructuring,1992
+Guinea,GIN,debt_restructuring,1992
+Guyana,GUY,debt_restructuring,1992
+Honduras,HND,debt_restructuring,1992
+Madagascar,MDG,debt_restructuring,1992
+Nigeria,NGA,debt_restructuring,1992
+Paraguay,PRY,debt_restructuring,1992
+Philippines,PHL,debt_restructuring,1992
+Tanzania,TZA,debt_restructuring,1992
+Argentina,ARG,debt_restructuring,1993
+Jordan,JOR,debt_restructuring,1993
+South Africa,ZAF,debt_restructuring,1993
+Uganda,UGA,debt_restructuring,1993
+Brazil,BRA,debt_restructuring,1994
+Bulgaria,BGR,debt_restructuring,1994
+Dominican Republic,DOM,debt_restructuring,1994
+Gabon,GAB,debt_restructuring,1994
+Poland,POL,debt_restructuring,1994
+Zambia,ZMB,debt_restructuring,1994
+Ecuador,ECU,debt_restructuring,1995
+Nicaragua,NIC,debt_restructuring,1995
+Sierra Leone,SLE,debt_restructuring,1995
+Panama,PAN,debt_restructuring,1996
+Peru,PER,debt_restructuring,1996
+Senegal,SEN,debt_restructuring,1996
+Cote d'Ivoire,CIV,debt_restructuring,1997
+Togo,TGO,debt_restructuring,1997
+Vietnam,VNM,debt_restructuring,1997
+Ukraine,UKR,debt_restructuring,1999
+Ecuador,ECU,debt_restructuring,2000
+Russia,RUS,debt_restructuring,2000
+Indonesia,IDN,debt_restructuring,2002
+Moldova,MDA,debt_restructuring,2002
+Uruguay,URY,debt_restructuring,2003
+Dominica,DMA,debt_restructuring,2004
+Argentina,ARG,debt_restructuring,2005
+Dominican Republic,DOM,debt_restructuring,2005
+Grenada,GRD,debt_restructuring,2005
+Belize,BLZ,debt_restructuring,2007
+Ecuador,ECU,debt_restructuring,2009
+Seychelles,SYC,debt_restructuring,2009
+Cote d'Ivoire,CIV,debt_restructuring,2010
+Jamaica,JAM,debt_restructuring,2010
+Greece,GRC,debt_restructuring,2012
+St. Kitts and Nevis,KNA,debt_restructuring,2012
+Belize,BLZ,debt_restructuring,2013
+Cyprus,CYP,debt_restructuring,2013
+Jamaica,JAM,debt_restructuring,2013
+Grenada,GRD,debt_restructuring,2015
+Ukraine,UKR,debt_restructuring,2015
+Argentina,ARG,debt_restructuring,2016
+Belize,BLZ,debt_restructuring,2017

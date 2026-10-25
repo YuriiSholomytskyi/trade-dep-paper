@@ -1,0 +1,16 @@
+\begin{table}[H]
+\centering\scriptsize
+\caption{Robustness of the partner-demand decomposition across specifications. The dependent variable is the full negative cycle in months; the partner-demand pulls enter together with trade openness and shock depth, country-clustered $t$-statistics in parentheses. The US-demand coefficient is stable across the filter, the depth threshold, and the crisis-dating chronology.}
+\label{tab:robustness}
+\begin{tabularx}{\textwidth}{@{}lcYYYYY@{}}
+\toprule
+Specification & Ep. & US & Other adv. & Emerging & China & Openness \\ \midrule
+Baseline (2-sided HP, depth$\ge$2) & 263 & $-5.6^{***}${\scriptsize$(-3.6)$} & $-2.5^{*}${\scriptsize$(-1.9)$} & $-1.3${\scriptsize$(-1.5)$} & $1.9^{**}${\scriptsize$(2.1)$} & $0.6${\scriptsize$(0.3)$} \\
+One-sided (real-time) HP & 218 & $-7.1^{***}${\scriptsize$(-3.4)$} & $-3.3^{**}${\scriptsize$(-2.1)$} & $-2.0${\scriptsize$(-1.5)$} & $0.5${\scriptsize$(0.5)$} & $0.3${\scriptsize$(0.1)$} \\
+True-crisis subsample (Laeven--Valencia) & 25 & $-22.3^{**}${\scriptsize$(-2.3)$} & $-6.0${\scriptsize$(-1.3)$} & $-6.2${\scriptsize$(-1.3)$} & $23.8^{*}${\scriptsize$(1.7)$} & $10.8${\scriptsize$(0.5)$} \\
+Depth threshold $\ge$3\% & 195 & $-6.2^{***}${\scriptsize$(-3.0)$} & $-3.4^{**}${\scriptsize$(-2.4)$} & $-2.1^{*}${\scriptsize$(-1.9)$} & $1.5${\scriptsize$(1.5)$} & $1.2${\scriptsize$(0.5)$} \\
+Depth threshold $\ge$1.5\% & 295 & $-4.8^{***}${\scriptsize$(-3.2)$} & $-2.1^{*}${\scriptsize$(-1.7)$} & $-1.4^{*}${\scriptsize$(-1.8)$} & $2.0^{**}${\scriptsize$(2.3)$} & $0.5${\scriptsize$(0.2)$} \\
+\bottomrule
+\end{tabularx}
+\\[2pt]\footnotesize{Emerging excludes China. Every specification also includes the active-arrangement indicator and the shock-depth control, so the baseline row reproduces the full-cycle column of Table~\ref{tab:main}. The one-sided filter uses an expanding (real-time) Hodrick--Prescott trend; the Laeven--Valencia subsample keeps episodes within a year of a recognised systemic crisis. $^{*}$, $^{**}$, $^{***}$: 10, 5, 1 percent.}
+\end{table}

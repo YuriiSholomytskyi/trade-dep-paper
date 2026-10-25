@@ -1,0 +1,53 @@
+# LaTeX build artifacts (compiled PDFs are tracked on purpose)
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.nav
+*.snm
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.synctex(busy)
+build/
+
+# Local backups / scratch copies
+*.bak
+*.bak*.tex
+*.bak_*
+*- Copy.*
+* copy.*
+_scratch/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Large / regenerable data (rebuild with scripts/fetch_*.py, build_*.py, discover_haver_activity.py)
+data/ctot_raw_monthly.csv
+data/imts_bilateral_exports_annual.csv
+data/imts_china_share_monthly.csv
+data/imts_raw_monthly_*.parquet
+data/haver_codes/
+data/_*.txt
+*.parquet
+
+# External tools (X-13ARIMA-SEATS binary)
+tools/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+.claude/settings.local.json
+
+# Secrets
+.env
+*.pem

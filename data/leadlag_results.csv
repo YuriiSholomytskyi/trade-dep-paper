@@ -1,0 +1,11 @@
+iso3,n,best_lag,peak_corr,corr_at_0,exports_lead
+SUR,122,6,0.16,0.03,True
+BLR,206,4,0.69,0.61,True
+LKA,265,3,0.26,0.22,True
+UKR,350,3,0.1,0.08,True
+ARG,386,0,0.35,0.35,False
+BRA,266,0,0.64,0.64,False
+RUS,375,-1,0.47,0.46,False
+AZE,147,-3,0.36,0.24,False
+SYC,144,-7,0.37,0.17,False
+ECU,260,-10,0.29,0.27,False

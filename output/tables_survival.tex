@@ -1,0 +1,21 @@
+\begin{table}[H]
+\centering\small
+\caption{Recovery as a censored time-to-event outcome. The event is the return of the output gap to zero; spells that do not return within 60 months are right-censored (8 of 263 episodes, 3\%). Estimates are from a discrete-time proportional-hazards model with a complementary-log-log link, a cubic baseline hazard in the month, and country-clustered standard errors. A hazard ratio above one means faster exit from the downturn; the US-demand pull raises the monthly recovery hazard, the counterpart of its negative coefficient in the linear duration regression of Table~\ref{tab:main}.}
+\label{tab:survival}
+\begin{tabularx}{\textwidth}{@{}lYY@{}}
+\toprule
+Covariate & Hazard ratio & Log hazard ratio ($z$) \\ \midrule
+US-demand pull & $2.25$ & $0.81^{***}$ {\scriptsize$(4.3)$} \\
+Other-advanced pull & $1.14$ & $0.13^{}$ {\scriptsize$(1.1)$} \\
+Emerging (ex-China) pull & $1.10$ & $0.10^{}$ {\scriptsize$(1.2)$} \\
+China pull & $0.92$ & $-0.08^{}$ {\scriptsize$(-0.8)$} \\
+Trade openness & $1.10$ & $0.10^{}$ {\scriptsize$(0.6)$} \\
+Shock depth & $0.97$ & $-0.03^{***}$ {\scriptsize$(-3.9)$} \\
+Active arrangement & $1.04$ & $0.04^{}$ {\scriptsize$(0.3)$} \\
+\midrule
+Episodes & \multicolumn{2}{c}{263 (34 countries)} \\
+Person-months at risk & \multicolumn{2}{c}{2609} \\
+\bottomrule
+\end{tabularx}
+\\[2pt]\footnotesize{Hazard ratios are $\exp(\text{coef})$; a value above one raises the probability of returning to trend in a given month. The baseline-hazard terms (cubic in the month) are included but not shown. $z$-statistics use country-clustered standard errors. $^{*}$, $^{**}$, $^{***}$: significance at 10, 5, 1 percent.}
+\end{table}

@@ -1,0 +1,19 @@
+\begin{table}[H]
+\centering\small
+\caption{Leave-one-out import-demand shift. The dependent variable is the length of the full negative output-gap cycle (months); a more negative coefficient means the external pull shortens the downturn. Column (1) is the baseline pull that weights predetermined export shares by partner GDP growth. Columns (2)--(3) replace the partner shift with the growth of each destination's imports from all origins \emph{except} the exposed economy (leave-one-out), raw and after removing destination and year fixed effects. Column (4) reports the same leave-one-out coefficient as column (2) with exposure-robust (Adao--Kolesar--Morales) standard errors that treat the destination import shifts as the level of variation. Controls: trade openness, an active-arrangement indicator, and downturn depth. Standard errors in parentheses; the first three columns cluster by economy.}
+\label{tab:loo}
+\begin{tabularx}{\textwidth}{@{}lYYYY@{}}
+\toprule
+& (1) Baseline & (2) LOO, raw & (3) LOO, resid. & (4) LOO, AKM \\
+& GDP-growth pull & import demand & import demand & import demand \\ \midrule
+External pull & $-1.38^{*}$ & $-0.27^{**}$ & $-0.91^{***}$ & $-0.27^{***}$ \\
+ & {\scriptsize$(0.75)$} & {\scriptsize$(0.10)$} & {\scriptsize$(0.24)$} & {\scriptsize$(0.04)$} \\
+\midrule
+Controls & Yes & Yes & Yes & Yes \\
+Destination$\times$year FE in shift & No & No & Yes & No \\
+Exposure-robust SE & No & No & No & Yes \\
+Observations & 263 & 263 & 263 & 263 \\
+\bottomrule
+\end{tabularx}
+\\[2pt]\footnotesize{The leave-one-out shift is built from annual bilateral goods trade; the local data carry no product or HS dimension, so the finer product-level leave-one-out is beyond their reach and is not attempted. World imports of each destination are proxied by the sum of reported bilateral exports into it. The raw leave-one-out pull correlates 0.47 with the baseline GDP-growth pull. $^{*}$, $^{**}$, $^{***}$: 10, 5, 1 percent.}
+\end{table}
